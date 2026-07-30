@@ -1,0 +1,124 @@
+{
+  "questions": [
+    {
+      "category": "Science",
+      "grade": "1st Grade",
+      "question": "What planet do we live on?",
+      "answer": "Earth"
+    },
+    {
+      "category": "Science",
+      "grade": "4th Grade",
+      "question": "What is the powerhouse of the cell?",
+      "answer": "Mitochondria"
+    },
+    {
+      "category": "Math",
+      "grade": "2nd Grade",
+      "question": "What is 7 + 8?",
+      "answer": "15"
+    },
+    {
+      "category": "Math",
+      "grade": "5th Grade",
+      "question": "What is the value of pi, rounded to two decimal places?",
+      "answer": "3.14"
+    },
+    {
+      "category": "Geography",
+      "grade": "3rd Grade",
+      "question": "What is the largest continent on Earth?",
+      "answer": "Asia"
+    },
+    {
+      "category": "Geography",
+      "grade": "5th Grade",
+      "question": "Which river is traditionally called the longest in the world?",
+      "answer": "The Nile River"
+    },
+    {
+      "category": "U.S. History",
+      "grade": "2nd Grade",
+      "question": "Who was the first President of the United States?",
+      "answer": "George Washington"
+    },
+    {
+      "category": "U.S. History",
+      "grade": "4th Grade",
+      "question": "In what year did the United States declare independence?",
+      "answer": "1776"
+    },
+    {
+      "category": "Reading",
+      "grade": "1st Grade",
+      "question": "What do you call a word that means the same as another word?",
+      "answer": "A synonym"
+    },
+    {
+      "category": "Reading",
+      "grade": "3rd Grade",
+      "question": "What is the main character of a story called?",
+      "answer": "The protagonist"
+    },
+    {
+      "category": "Spelling",
+      "grade": "2nd Grade",
+      "question": "Spell the word meaning \"to get or obtain something.\"",
+      "answer": "Receive"
+    },
+    {
+      "category": "Spelling",
+      "grade": "4th Grade",
+      "question": "Spell the word meaning \"required or essential.\"",
+      "answer": "Necessary"
+    },
+    {
+      "category": "Grammar",
+      "grade": "3rd Grade",
+      "question": "What contraction means \"they are\"?",
+      "answer": "They're"
+    },
+    {
+      "category": "Grammar",
+      "grade": "5th Grade",
+      "question": "Name a preposition that means the opposite of \"over.\"",
+      "answer": "Under"
+    },
+    {
+      "category": "Social Studies",
+      "grade": "2nd Grade",
+      "question": "What do we call the place where U.S. laws are made?",
+      "answer": "Congress"
+    },
+    {
+      "category": "Social Studies",
+      "grade": "4th Grade",
+      "question": "How many branches does the U.S. government have?",
+      "answer": "3"
+    },
+    {
+      "category": "Health",
+      "grade": "1st Grade",
+      "question": "How many bones are in the adult human body?",
+      "answer": "206"
+    },
+    {
+      "category": "Health",
+      "grade": "3rd Grade",
+      "question": "Bread, rice, and pasta belong to which food group?",
+      "answer": "Grains"
+    },
+    {
+      "category": "Art & Music",
+      "grade": "2nd Grade",
+      "question": "What are the three primary colors?",
+      "answer": "Red, yellow, and blue"
+    },
+    {
+      "category": "Art & Music",
+      "grade": "5th Grade",
+      "question": "How many lines are on a standard musical staff?",
+      "answer": "5"
+    }
+  ]
+}

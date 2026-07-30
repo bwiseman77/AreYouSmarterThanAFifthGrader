@@ -1,0 +1,874 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Are You Smarter Than a 5th Grader?</title>
+<style>
+  :root {
+    --bg-top: #1e3a8a;
+    --bg-bottom: #7c2d92;
+    --card: #ffffff;
+    --ink: #1a1a2e;
+    --muted: #6b7280;
+    --correct: #16a34a;
+    --wrong: #dc2626;
+    --accent: #f59e0b;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    min-height: 100vh;
+    font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
+    background: linear-gradient(160deg, var(--bg-top), var(--bg-bottom));
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    padding: 24px;
+  }
+  .bottom-bar {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+  }
+  .bottom-btn {
+    background: rgba(255,255,255,0.15);
+    color: #fff;
+    border: 1px solid rgba(255,255,255,0.35);
+    padding: 8px 16px;
+    border-radius: 999px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    cursor: pointer;
+  }
+  .bottom-btn:hover {
+    background: rgba(255,255,255,0.25);
+  }
+  .modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.6);
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    z-index: 50;
+  }
+  .modal-overlay.open {
+    display: flex;
+  }
+  .modal-box {
+    background: var(--card);
+    border-radius: 16px;
+    padding: 28px;
+    max-width: 480px;
+    width: 100%;
+    max-height: 80vh;
+    overflow-y: auto;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.4);
+  }
+  .modal-box h2 {
+    margin-top: 0;
+    color: var(--ink);
+  }
+  .modal-box ol {
+    padding-left: 20px;
+    color: var(--ink);
+    line-height: 1.6;
+  }
+  .modal-box li {
+    margin-bottom: 8px;
+  }
+  .layout {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 20px;
+    width: 100%;
+    max-width: 1140px;
+    flex-wrap: wrap;
+  }
+  .app {
+    width: 100%;
+    max-width: 780px;
+  }
+  h1.title {
+    text-align: center;
+    color: #fff;
+    font-size: 1.8rem;
+    margin: 0 0 20px;
+    text-shadow: 0 2px 6px rgba(0,0,0,0.3);
+  }
+  .card {
+    background: var(--card);
+    border-radius: 16px;
+    padding: 28px;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.35);
+  }
+  .team-panel {
+    background: var(--card);
+    border-radius: 16px;
+    padding: 24px 16px;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.35);
+    width: 150px;
+    flex-shrink: 0;
+    text-align: center;
+    margin-top: 46px;
+  }
+  .team-name {
+    font-weight: 800;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    color: var(--ink);
+    margin-bottom: 10px;
+  }
+  .team-score {
+    font-size: 2.6rem;
+    font-weight: 800;
+    color: var(--accent);
+    margin-bottom: 16px;
+  }
+  .team-buttons {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+  }
+  .team-btn {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: none;
+    font-size: 1.3rem;
+    font-weight: 800;
+    color: #fff;
+    cursor: pointer;
+    line-height: 1;
+  }
+  .team-btn:hover {
+    filter: brightness(1.1);
+  }
+  .team-btn.plus {
+    background: var(--correct);
+  }
+  .team-btn.minus {
+    background: var(--wrong);
+  }
+  .home-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 18px;
+    font-size: 0.9rem;
+  }
+  .total-score {
+    font-weight: 700;
+    color: var(--ink);
+  }
+  .category-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 14px;
+  }
+  .category-grid > *:last-child:nth-child(3n+1) {
+    grid-column: 2;
+  }
+  .category-card {
+    border: 2px solid #e5e7eb;
+    border-radius: 12px;
+    padding: 16px 14px;
+    background: #f9fafb;
+    text-align: center;
+  }
+  .category-card.done {
+    background: #f3f4f6;
+    border-color: #d1d5db;
+  }
+  .category-card .emoji {
+    font-size: 2rem;
+    margin-bottom: 8px;
+  }
+  .category-card .name {
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 10px;
+  }
+  .grade-buttons {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+  }
+  .grade-btn {
+    flex: 1;
+    padding: 8px 6px;
+    border-radius: 8px;
+    border: 2px solid #bfdbfe;
+    background: #eff6ff;
+    color: #1e3a8a;
+    font-size: 0.75rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: border-color 0.15s ease, background 0.15s ease;
+  }
+  .grade-btn:hover:not(:disabled) {
+    border-color: #93c5fd;
+    background: #dbeafe;
+  }
+  .grade-btn:disabled {
+    cursor: default;
+  }
+  .grade-btn.won-team1 {
+    background: #dbeafe;
+    border-color: #2563eb;
+    color: #1e3a8a;
+  }
+  .grade-btn.won-team2 {
+    background: #f3e8ff;
+    border-color: #9333ea;
+    color: #581c87;
+  }
+  .grade-btn.won-both {
+    background: linear-gradient(135deg, #dbeafe 50%, #f3e8ff 50%);
+    border-color: #7c3aed;
+    color: #312e81;
+  }
+  .grade-btn.won-none {
+    background: #f3f4f6;
+    border-color: #d1d5db;
+    color: var(--muted);
+  }
+  .back-link {
+    background: none;
+    border: none;
+    color: var(--muted);
+    font-size: 0.85rem;
+    cursor: pointer;
+    padding: 0;
+    margin-bottom: 16px;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+  }
+  .back-link:hover {
+    color: var(--ink);
+  }
+  .badge-row {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 14px;
+  }
+  .badge {
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 999px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+  }
+  .badge-category { background: #dbeafe; color: #1e3a8a; }
+  .badge-grade { background: #fde68a; color: #78350f; }
+  .question {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--ink);
+    margin-bottom: 22px;
+    line-height: 1.4;
+  }
+  .reveal-btn {
+    display: block;
+    width: 100%;
+    text-align: center;
+    padding: 16px;
+    border: 2px dashed #cbd5e1;
+    border-radius: 10px;
+    background: #f9fafb;
+    color: var(--muted);
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: border-color 0.15s ease, background 0.15s ease;
+  }
+  .reveal-btn:hover {
+    border-color: #93c5fd;
+    background: #eff6ff;
+    color: var(--ink);
+  }
+  .answer-box {
+    text-align: center;
+    padding: 16px;
+    border: 2px solid var(--correct);
+    border-radius: 10px;
+    background: #dcfce7;
+    color: #14532d;
+    font-size: 1.15rem;
+    font-weight: 700;
+  }
+  .award-label {
+    display: block;
+    text-align: center;
+    color: var(--muted);
+    font-size: 0.85rem;
+    margin: 14px 0 10px;
+  }
+  .award-buttons {
+    display: flex;
+    gap: 10px;
+  }
+  .award-btn {
+    flex: 1;
+    padding: 12px;
+    border-radius: 8px;
+    border: 2px solid;
+    background: #fff;
+    font-size: 0.95rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.15s ease, color 0.15s ease;
+  }
+  .award-btn:hover {
+    filter: brightness(0.97);
+  }
+  .award-btn.team1 {
+    border-color: #2563eb;
+    color: #2563eb;
+  }
+  .award-btn.team2 {
+    border-color: #9333ea;
+    color: #9333ea;
+  }
+  .award-btn.team1.active {
+    background: #2563eb;
+    color: #fff;
+  }
+  .award-btn.team2.active {
+    background: #9333ea;
+    color: #fff;
+  }
+  .footer-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 22px;
+  }
+  .score {
+    font-weight: 700;
+    color: var(--ink);
+  }
+  button.next {
+    background: var(--accent);
+    color: #fff;
+    border: none;
+    padding: 10px 22px;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+  }
+  button.next:disabled {
+    background: #d1d5db;
+    cursor: not-allowed;
+  }
+  .result {
+    text-align: center;
+  }
+  .result h2 {
+    font-size: 2rem;
+    margin-bottom: 6px;
+    color: var(--ink);
+  }
+  .result .score-big {
+    font-size: 3rem;
+    font-weight: 800;
+    margin: 10px 0;
+  }
+  .result p.tagline {
+    color: var(--muted);
+    margin-bottom: 24px;
+  }
+  button.restart {
+    background: #1e3a8a;
+    color: #fff;
+    border: none;
+    padding: 12px 28px;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+  }
+  .error-box {
+    background: #fee2e2;
+    border: 1px solid #fca5a5;
+    color: #7f1d1d;
+    padding: 16px;
+    border-radius: 10px;
+    line-height: 1.5;
+  }
+  .error-box code {
+    background: #fff;
+    padding: 2px 6px;
+    border-radius: 4px;
+  }
+</style>
+</head>
+<body>
+<div class="layout">
+  <div class="team-panel">
+    <div class="team-name">Team 1</div>
+    <div class="team-score" id="team1Score">0</div>
+    <div class="team-buttons">
+      <button class="team-btn minus" id="team1Minus">&minus;</button>
+      <button class="team-btn plus" id="team1Plus">+</button>
+    </div>
+  </div>
+
+  <div class="app">
+    <h1 class="title">🎓 Are You Smarter Than a 5th Grader?</h1>
+    <div class="card" id="card">Loading questions&hellip;</div>
+  </div>
+
+  <div class="team-panel">
+    <div class="team-name">Team 2</div>
+    <div class="team-score" id="team2Score">0</div>
+    <div class="team-buttons">
+      <button class="team-btn minus" id="team2Minus">&minus;</button>
+      <button class="team-btn plus" id="team2Plus">+</button>
+    </div>
+  </div>
+</div>
+
+<div class="bottom-bar">
+  <button class="bottom-btn" id="rulesBtn">📜 Rules</button>
+  <button class="bottom-btn" id="resetBtn">🔄 Reset Game</button>
+</div>
+
+<div class="modal-overlay" id="rulesOverlay">
+  <div class="modal-box">
+    <h2>How to Play</h2>
+    <ol>
+      <li>Pick a category, then pick a grade level to reveal that question. Higher grades are worth more points (1st: 100, 2nd: 200, 3rd: 300, 4th: 500, 5th: 1000).</li>
+      <li>Read the question out loud and let both teams answer.</li>
+      <li>Click <strong>Reveal Answer</strong> to show the correct answer.</li>
+      <li>Click <strong>Team 1</strong> and/or <strong>Team 2</strong> to award that team the points &mdash; both teams can score on the same question. Click a team again to undo it.</li>
+      <li>Click <strong>Back to Categories</strong> to continue. Once all 20 questions are answered, the final scores decide the winner.</li>
+      <li>Use the <strong>+</strong> / <strong>&minus;</strong> buttons on either scoreboard to adjust a team's score manually at any time.</li>
+      <li>Use <strong>Reset Game</strong> below to clear all scores and start over.</li>
+    </ol>
+    <h2>Cheats</h2>
+    <p>You may choose ONE classmate to help with a question:</p>
+    <ol>
+      <li><strong>Peek</strong> &mdash; Look at your classmate's answer, then decide whether to use your own answer or theirs.</li>
+      <li><strong>Copy</strong> &mdash; You MUST use your classmate's answer. No changing your mind.</li>
+      <li><strong>Save</strong> &mdash; You answer normally. If you're wrong but your classmate answered correctly, you're saved and stay in the game. If both are wrong, you're out.</li>
+    </ol>
+    <button class="next" id="closeRulesBtn">Close</button>
+  </div>
+</div>
+
+<!-- Generated by build.py from questions.json — do not hand-edit this block, edit questions.json instead. -->
+<script id="questions-data">
+const QUESTIONS_DATA = {
+  "questions": [
+    {
+      "category": "Science",
+      "grade": "1st Grade",
+      "question": "What planet do we live on?",
+      "answer": "Earth"
+    },
+    {
+      "category": "Science",
+      "grade": "4th Grade",
+      "question": "What is the powerhouse of the cell?",
+      "answer": "Mitochondria"
+    },
+    {
+      "category": "Math",
+      "grade": "2nd Grade",
+      "question": "What is 7 + 8?",
+      "answer": "15"
+    },
+    {
+      "category": "Math",
+      "grade": "5th Grade",
+      "question": "What is the value of pi, rounded to two decimal places?",
+      "answer": "3.14"
+    },
+    {
+      "category": "Geography",
+      "grade": "3rd Grade",
+      "question": "What is the largest continent on Earth?",
+      "answer": "Asia"
+    },
+    {
+      "category": "Geography",
+      "grade": "5th Grade",
+      "question": "Which river is traditionally called the longest in the world?",
+      "answer": "The Nile River"
+    },
+    {
+      "category": "U.S. History",
+      "grade": "2nd Grade",
+      "question": "Who was the first President of the United States?",
+      "answer": "George Washington"
+    },
+    {
+      "category": "U.S. History",
+      "grade": "4th Grade",
+      "question": "In what year did the United States declare independence?",
+      "answer": "1776"
+    },
+    {
+      "category": "Reading",
+      "grade": "1st Grade",
+      "question": "What do you call a word that means the same as another word?",
+      "answer": "A synonym"
+    },
+    {
+      "category": "Reading",
+      "grade": "3rd Grade",
+      "question": "What is the main character of a story called?",
+      "answer": "The protagonist"
+    },
+    {
+      "category": "Spelling",
+      "grade": "2nd Grade",
+      "question": "Spell the word meaning \"to get or obtain something.\"",
+      "answer": "Receive"
+    },
+    {
+      "category": "Spelling",
+      "grade": "4th Grade",
+      "question": "Spell the word meaning \"required or essential.\"",
+      "answer": "Necessary"
+    },
+    {
+      "category": "Grammar",
+      "grade": "3rd Grade",
+      "question": "What contraction means \"they are\"?",
+      "answer": "They're"
+    },
+    {
+      "category": "Grammar",
+      "grade": "5th Grade",
+      "question": "Name a preposition that means the opposite of \"over.\"",
+      "answer": "Under"
+    },
+    {
+      "category": "Social Studies",
+      "grade": "2nd Grade",
+      "question": "What do we call the place where U.S. laws are made?",
+      "answer": "Congress"
+    },
+    {
+      "category": "Social Studies",
+      "grade": "4th Grade",
+      "question": "How many branches does the U.S. government have?",
+      "answer": "3"
+    },
+    {
+      "category": "Health",
+      "grade": "1st Grade",
+      "question": "How many bones are in the adult human body?",
+      "answer": "206"
+    },
+    {
+      "category": "Health",
+      "grade": "3rd Grade",
+      "question": "Bread, rice, and pasta belong to which food group?",
+      "answer": "Grains"
+    },
+    {
+      "category": "Art & Music",
+      "grade": "2nd Grade",
+      "question": "What are the three primary colors?",
+      "answer": "Red, yellow, and blue"
+    },
+    {
+      "category": "Art & Music",
+      "grade": "5th Grade",
+      "question": "How many lines are on a standard musical staff?",
+      "answer": "5"
+    }
+  ]
+};
+</script>
+
+<script>
+const CATEGORY_EMOJI = {
+  'Science': '🔬',
+  'Math': '➗',
+  'Geography': '🌍',
+  'U.S. History': '🏛️',
+  'Reading': '📖',
+  'Spelling': '✏️',
+  'Grammar': '📝',
+  'Social Studies': '🏫',
+  'Health': '🩺',
+  'Art & Music': '🎨'
+};
+function emojiFor(category) {
+  return CATEGORY_EMOJI[category] || '❓';
+}
+
+const GRADE_POINTS = {
+  '1st Grade': 100,
+  '2nd Grade': 200,
+  '3rd Grade': 300,
+  '4th Grade': 500,
+  '5th Grade': 1000
+};
+function pointsForGrade(grade) {
+  return GRADE_POINTS[grade] || 100;
+}
+
+const state = {
+  categories: [],
+  totalQuestions: 0,
+  totalAnswered: 0,
+  current: null, // { catIndex, qIndexInCat }
+  answered: false
+};
+
+const teamScores = { team1: 0, team2: 0 };
+
+const card = document.getElementById('card');
+
+function updateTeamScoreDisplay(key) {
+  document.getElementById(key + 'Score').textContent = teamScores[key];
+}
+
+function addTeamPoints(key, amount) {
+  teamScores[key] += amount;
+  updateTeamScoreDisplay(key);
+}
+
+function subtractTeamPoints(key, amount) {
+  teamScores[key] = Math.max(0, teamScores[key] - amount);
+  updateTeamScoreDisplay(key);
+}
+
+function bindTeamScoreboards() {
+  document.getElementById('team1Plus').addEventListener('click', () => addTeamPoints('team1', 100));
+  document.getElementById('team2Plus').addEventListener('click', () => addTeamPoints('team2', 100));
+  document.getElementById('team1Minus').addEventListener('click', () => subtractTeamPoints('team1', 100));
+  document.getElementById('team2Minus').addEventListener('click', () => subtractTeamPoints('team2', 100));
+}
+
+function buildCategories(questions) {
+  const map = new Map();
+  questions.forEach(q => {
+    if (!map.has(q.category)) map.set(q.category, []);
+    map.get(q.category).push({ ...q, answered: false, wonBy: [] });
+  });
+  return Array.from(map.entries()).map(([name, qs]) => ({
+    name,
+    questions: qs,
+    answeredCount: 0
+  }));
+}
+
+function loadQuestions() {
+  try {
+    if (typeof QUESTIONS_DATA === 'undefined' || !QUESTIONS_DATA.questions || !QUESTIONS_DATA.questions.length) {
+      throw new Error('No embedded question data found.');
+    }
+    state.categories = buildCategories(QUESTIONS_DATA.questions);
+    state.totalQuestions = QUESTIONS_DATA.questions.length;
+    renderHome();
+  } catch (err) {
+    card.innerHTML = `
+      <div class="error-box">
+        <strong>No question data is embedded in this file.</strong><br><br>
+        Edit <code>questions.json</code>, then run:<br><br>
+        <code>python build.py</code><br><br>
+        to embed the questions into index.html.<br><br>
+        <em>(Error: ${err.message})</em>
+      </div>`;
+  }
+}
+
+function renderHome() {
+  const allDone = state.totalAnswered === state.totalQuestions;
+
+  card.innerHTML = `
+    <div class="home-header">
+      <span class="total-score">${state.totalAnswered}/${state.totalQuestions} answered</span>
+      <span class="total-score" style="color:var(--muted)">Team 1: ${teamScores.team1} &nbsp;|&nbsp; Team 2: ${teamScores.team2}</span>
+    </div>
+    <div class="category-grid" id="categoryGrid"></div>
+    ${allDone ? '<div class="footer-row"><span></span><button class="next" id="finalBtn">See Final Results &rarr;</button></div>' : ''}
+  `;
+
+  const grid = document.getElementById('categoryGrid');
+  state.categories.forEach((cat, ci) => {
+    const total = cat.questions.length;
+    const done = cat.answeredCount === total;
+    const el = document.createElement('div');
+    el.className = 'category-card' + (done ? ' done' : '');
+
+    const buttonsHtml = cat.questions.map((q, qi) => {
+      let cls = 'grade-btn';
+      if (q.answered) {
+        cls += q.wonBy.length === 2 ? ' won-both' : q.wonBy.length === 1 ? ' won-' + q.wonBy[0] : ' won-none';
+      }
+      return `<button class="${cls}" data-qi="${qi}" ${q.answered ? 'disabled' : ''}>${q.grade}<br>(${pointsForGrade(q.grade)})</button>`;
+    }).join('');
+
+    el.innerHTML = `
+      <div class="emoji">${emojiFor(cat.name)}</div>
+      <div class="name">${cat.name}</div>
+      <div class="grade-buttons">${buttonsHtml}</div>
+    `;
+
+    el.querySelectorAll('.grade-btn').forEach(btn => {
+      if (!btn.disabled) {
+        const qi = Number(btn.dataset.qi);
+        btn.addEventListener('click', () => openQuestion(ci, qi));
+      }
+    });
+
+    grid.appendChild(el);
+  });
+
+  if (allDone) {
+    document.getElementById('finalBtn').addEventListener('click', renderResult);
+  }
+}
+
+function openQuestion(catIndex, qIndexInCat) {
+  state.current = { catIndex, qIndexInCat };
+  renderQuestion();
+}
+
+function renderQuestion() {
+  state.answered = false;
+  const { catIndex, qIndexInCat } = state.current;
+  const cat = state.categories[catIndex];
+  const q = cat.questions[qIndexInCat];
+
+  card.innerHTML = `
+    <button class="back-link" id="backBtn">&larr; Categories</button>
+    <div class="badge-row">
+      <span class="badge badge-category">${q.category}</span>
+      <span class="badge badge-grade">${q.grade} &middot; ${pointsForGrade(q.grade)} pts</span>
+    </div>
+    <div class="question">${q.question}</div>
+    <button class="reveal-btn" id="revealBtn">Reveal Answer</button>
+  `;
+
+  document.getElementById('backBtn').addEventListener('click', renderHome);
+  document.getElementById('revealBtn').addEventListener('click', () => revealAnswer(q));
+}
+
+function revealAnswer(q) {
+  const points = pointsForGrade(q.grade);
+  const isLast = state.totalAnswered + 1 === state.totalQuestions;
+
+  const revealBtn = document.getElementById('revealBtn');
+  revealBtn.outerHTML = `
+    <div class="answer-box">${q.answer}</div>
+    <span class="award-label">Who got it right? (worth ${points} points each &mdash; both teams can score)</span>
+    <div class="award-buttons">
+      <button class="award-btn team1" id="awardTeam1">Team 1</button>
+      <button class="award-btn team2" id="awardTeam2">Team 2</button>
+    </div>
+    <div class="footer-row">
+      <span></span>
+      <button class="next" id="continueBtn">${isLast ? 'See Final Results →' : 'Back to Categories →'}</button>
+    </div>
+  `;
+
+  document.getElementById('awardTeam1').addEventListener('click', e => toggleAward(q, 'team1', e.currentTarget));
+  document.getElementById('awardTeam2').addEventListener('click', e => toggleAward(q, 'team2', e.currentTarget));
+  document.getElementById('continueBtn').addEventListener('click', () => finishQuestion(q));
+}
+
+function toggleAward(q, teamKey, btn) {
+  const points = pointsForGrade(q.grade);
+  const idx = q.wonBy.indexOf(teamKey);
+  const label = teamKey === 'team1' ? 'Team 1' : 'Team 2';
+  if (idx === -1) {
+    q.wonBy.push(teamKey);
+    addTeamPoints(teamKey, points);
+    btn.classList.add('active');
+    btn.textContent = '✓ ' + label;
+  } else {
+    q.wonBy.splice(idx, 1);
+    subtractTeamPoints(teamKey, points);
+    btn.classList.remove('active');
+    btn.textContent = label;
+  }
+}
+
+function finishQuestion(q) {
+  if (state.answered) return;
+  state.answered = true;
+  q.answered = true;
+
+  const cat = state.categories[state.current.catIndex];
+  cat.answeredCount++;
+  state.totalAnswered++;
+
+  if (state.totalAnswered === state.totalQuestions) {
+    renderResult();
+  } else {
+    renderHome();
+  }
+}
+
+function renderResult() {
+  const t1 = teamScores.team1;
+  const t2 = teamScores.team2;
+
+  let tagline;
+  if (t1 === t2) tagline = "It's a tie! Great game, both teams. 🤝";
+  else if (t1 > t2) tagline = "Team 1 wins! 🏆";
+  else tagline = "Team 2 wins! 🏆";
+
+  card.innerHTML = `
+    <div class="result">
+      <h2>Game Over!</h2>
+      <div class="score-big">${t1} &ndash; ${t2}</div>
+      <p class="tagline">${tagline}</p>
+      <button class="restart" id="restartBtn">Play Again</button>
+    </div>
+  `;
+  document.getElementById('restartBtn').addEventListener('click', resetGame);
+}
+
+function resetGame() {
+  state.totalAnswered = 0;
+  state.current = null;
+  teamScores.team1 = 0;
+  teamScores.team2 = 0;
+  updateTeamScoreDisplay('team1');
+  updateTeamScoreDisplay('team2');
+  state.categories.forEach(cat => {
+    cat.answeredCount = 0;
+    cat.questions.forEach(q => { q.answered = false; q.wonBy = []; });
+  });
+  renderHome();
+}
+
+function bindBottomBar() {
+  const overlay = document.getElementById('rulesOverlay');
+  document.getElementById('rulesBtn').addEventListener('click', () => overlay.classList.add('open'));
+  document.getElementById('closeRulesBtn').addEventListener('click', () => overlay.classList.remove('open'));
+  overlay.addEventListener('click', e => {
+    if (e.target === overlay) overlay.classList.remove('open');
+  });
+  document.getElementById('resetBtn').addEventListener('click', () => {
+    if (confirm('Reset the whole game? This clears both team scores and all answered questions.')) {
+      resetGame();
+    }
+  });
+}
+
+bindTeamScoreboards();
+bindBottomBar();
+loadQuestions();
+</script>
+</body>
+</html>
