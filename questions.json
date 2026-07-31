@@ -3,7 +3,7 @@
     {
       "category": "Science",
       "grade": "4th Grade",
-      "question": "Which of the following trees is considered a conifer? (A) Oak (B) Pine (C) Maple",
+      "question": "Which of the following trees is considered a conifer? (A) Oak (B) Pine (C) Maple (D) Birch",
       "answer": "Pine"
     },
     {
@@ -62,9 +62,9 @@
     },
     {
       "category": "Health",
-      "grade": "3rd Grade",
-      "question": "What is the largest organ in the human body?",
-      "answer": "The Skin (liver by technicality)"
+      "grade": "4th Grade",
+      "question": "Alveoli are located in what organ of the human body?",
+      "answer": "The lungs"
     },
     {
       "category": "Music",
@@ -112,7 +112,7 @@
       "category": "Astronomy",
       "grade": "5th Grade",
       "question": "What is the most abundant element in the universe?",
-      "answer": "Carbon"
+      "answer": "Hydrogen"
     },
     {
       "category": "Health",
@@ -153,8 +153,8 @@
     {
       "category": "U.S. History",
       "grade": "4th Grade",
-      "question": "Who was elected president of the Confederate States during the American Civil War?",
-      "answer": "Jefferson Davis"
+      "question": "Who was the first person to sign the Declaration of Independence?",
+      "answer": "John Hancock"
     },
     {
       "category": "Animal Science",
