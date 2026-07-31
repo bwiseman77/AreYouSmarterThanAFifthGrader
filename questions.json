@@ -2,123 +2,219 @@
   "questions": [
     {
       "category": "Science",
+      "grade": "4th Grade",
+      "question": "Which of the following trees is considered a conifer? (A) Oak (B) Pine (C) Maple",
+      "answer": "Pine"
+    },
+    {
+      "category": "Social Studies",
+      "grade": "2nd Grade",
+      "question": "True or False? The U.S. president must be a natural born citizen of the United States.",
+      "answer": "True"
+    },
+    {
+      "category": "U.S. Geography",
+      "grade": "3rd Grade",
+      "question": "What is the capital of Michigan?",
+      "answer": "Lansing"
+    },
+    {
+      "category": "Mystery",
+      "grade": "5th Grade",
+      "question": "After discovering Radium in 1898, what French chemist became the first woman to win a Nobel Prize?",
+      "answer": "Marie Curie"
+    },
+    {
+      "category": "U.S. Geography",
       "grade": "1st Grade",
-      "question": "What planet do we live on?",
-      "answer": "Earth"
+      "question": "What does the C stand for in Washington D.C.?",
+      "answer": "Columbia"
     },
     {
       "category": "Science",
-      "grade": "4th Grade",
-      "question": "What is the powerhouse of the cell?",
-      "answer": "Mitochondria"
+      "grade": "1st Grade",
+      "question": "True or False? A salamander is a lizard.",
+      "answer": "False"
     },
     {
-      "category": "Math",
+      "category": "Geography",
       "grade": "2nd Grade",
-      "question": "What is 7 + 8?",
-      "answer": "15"
+      "question": "Excluding Antarctica, which continent reaches the furthest south?",
+      "answer": "South America"
+    },
+    {
+      "category": "Social Studies",
+      "grade": "1st Grade",
+      "question": "How many justices serve on the US Supreme Court?",
+      "answer": "9"
+    },
+    {
+      "category": "Geography",
+      "grade": "5th Grade",
+      "question": "Which of the following is NOT an official language of Switzerland? (A) German (B) French (C) Italian (D) Portuguese",
+      "answer": "Portuguese"
+    },
+    {
+      "category": "U.S. History",
+      "grade": "5th Grade",
+      "question": "What man who would later be U.S. president represented the British soldiers who were on trial for the Boston Massacre?",
+      "answer": "John Adams"
+    },
+    {
+      "category": "Health",
+      "grade": "3rd Grade",
+      "question": "What is the largest organ in the human body?",
+      "answer": "The Skin (liver by technicality)"
+    },
+    {
+      "category": "Music",
+      "grade": "4th Grade",
+      "question": "What patriotic song, based on a poem by Katharine Lee Bates, begins with the lyrics \"O Beautiful For Spacious Skies\"?",
+      "answer": "America the Beautiful"
+    },
+    {
+      "category": "Mystery",
+      "grade": "5th Grade",
+      "question": "What's the value of the following number: MCMLXXXIV",
+      "answer": "1984"
     },
     {
       "category": "Math",
-      "grade": "5th Grade",
-      "question": "What is the value of pi, rounded to two decimal places?",
-      "answer": "3.14"
+      "grade": "4th Grade",
+      "question": "What is the only prime number that is a factor of 16?",
+      "answer": "2"
     },
     {
-      "category": "Geography",
+      "category": "Measurement",
       "grade": "3rd Grade",
-      "question": "What is the largest continent on Earth?",
-      "answer": "Asia"
+      "question": "One inch is equal to how many centimeters? (A) 1.27 (B) 2.05 (C) 2.54 (D) 2.64",
+      "answer": "2.54"
     },
     {
-      "category": "Geography",
+      "category": "Science",
+      "grade": "2nd Grade",
+      "question": "What cloud produces thunder, lightning, and heavy rain? (A) Cumulonimbus (B) Cumulus (C) Stratus (D) Cirrus",
+      "answer": "Cumulonimbus"
+    },
+    {
+      "category": "Astronomy",
+      "grade": "3rd Grade",
+      "question": "What planet is typically the brightest in the night sky? (A) Venus (B) Mars (C) Mercury (D) Jupiter",
+      "answer": "Venus"
+    },
+    {
+      "category": "Measurement",
       "grade": "5th Grade",
-      "question": "Which river is traditionally called the longest in the world?",
-      "answer": "The Nile River"
+      "question": "How many cups are in 5 and a half gallons?",
+      "answer": "88 cups (16 × 5 + 8 = 88)"
+    },
+    {
+      "category": "Astronomy",
+      "grade": "5th Grade",
+      "question": "What is the most abundant element in the universe?",
+      "answer": "Carbon"
+    },
+    {
+      "category": "Health",
+      "grade": "5th Grade",
+      "question": "Which blood type is known as the universal RECIPIENT? (A) AB (B) O (C) A (D) B",
+      "answer": "AB"
     },
     {
       "category": "U.S. History",
       "grade": "2nd Grade",
-      "question": "Who was the first President of the United States?",
+      "question": "The Statue of Liberty was a gift to the U.S. from which country?",
+      "answer": "France"
+    },
+    {
+      "category": "Math",
+      "grade": "3rd Grade",
+      "question": "What is the least common multiple of 9 and 12?",
+      "answer": "36"
+    },
+    {
+      "category": "U.S. Geography",
+      "grade": "4th Grade",
+      "question": "What is the largest Great Lake?",
+      "answer": "Lake Superior"
+    },
+    {
+      "category": "Health",
+      "grade": "3rd Grade",
+      "question": "What organ in the human body produces and secretes bile?",
+      "answer": "The liver"
+    },
+    {
+      "category": "Geography",
+      "grade": "1st Grade",
+      "question": "What is the longest river in the world?",
+      "answer": "The Nile"
+    },
+    {
+      "category": "U.S. History",
+      "grade": "4th Grade",
+      "question": "Who was elected president of the Confederate States during the American Civil War?",
+      "answer": "Jefferson Davis"
+    },
+    {
+      "category": "Animal Science",
+      "grade": "2nd Grade",
+      "question": "True or False: A porcupine is a type of rodent.",
+      "answer": "True"
+    },
+    {
+      "category": "Animal Science",
+      "grade": "3rd Grade",
+      "question": "In this ecosystem, a wolf that primarily eats deer would belong to which trophic level? (A) Producer (B) Primary (C) Decomposer (D) Secondary",
+      "answer": "Secondary"
+    },
+    {
+      "category": "Music",
+      "grade": "3rd Grade",
+      "question": "Which of these voices is the highest? (A) Soprano (B) Bass (C) alto (D) tenor",
+      "answer": "Soprano"
+    },
+    {
+      "category": "Astronomy",
+      "grade": "4th Grade",
+      "question": "What country was the first to put a human in space?",
+      "answer": "Soviet Union"
+    },
+    {
+      "category": "Math",
+      "grade": "5th Grade",
+      "question": "What is 12/5 ÷ 7/15?",
+      "answer": "36/7"
+    },
+    {
+      "category": "Measurement",
+      "grade": "3rd Grade",
+      "question": "How many feet are in one mile?",
+      "answer": "5280"
+    },
+    {
+      "category": "Animal Science",
+      "grade": "4th Grade",
+      "question": "What is a group of geese on the ground called?",
+      "answer": "A gaggle"
+    },
+    {
+      "category": "Social Studies",
+      "grade": "2nd Grade",
+      "question": "Which president was said to have cut down the cherry tree?",
       "answer": "George Washington"
     },
     {
-      "category": "U.S. History",
-      "grade": "4th Grade",
-      "question": "In what year did the United States declare independence?",
-      "answer": "1776"
-    },
-    {
-      "category": "Reading",
-      "grade": "1st Grade",
-      "question": "What do you call a word that means the same as another word?",
-      "answer": "A synonym"
-    },
-    {
-      "category": "Reading",
-      "grade": "3rd Grade",
-      "question": "What is the main character of a story called?",
-      "answer": "The protagonist"
-    },
-    {
-      "category": "Spelling",
+      "category": "Mystery",
       "grade": "2nd Grade",
-      "question": "Spell the word meaning \"to get or obtain something.\"",
-      "answer": "Receive"
+      "question": "What is the name of the layer of the Earth located directly beneath the crust?",
+      "answer": "The mantle"
     },
     {
-      "category": "Spelling",
-      "grade": "4th Grade",
-      "question": "Spell the word meaning \"required or essential.\"",
-      "answer": "Necessary"
-    },
-    {
-      "category": "Grammar",
-      "grade": "3rd Grade",
-      "question": "What contraction means \"they are\"?",
-      "answer": "They're"
-    },
-    {
-      "category": "Grammar",
-      "grade": "5th Grade",
-      "question": "Name a preposition that means the opposite of \"over.\"",
-      "answer": "Under"
-    },
-    {
-      "category": "Social Studies",
+      "category": "Music",
       "grade": "2nd Grade",
-      "question": "What do we call the place where U.S. laws are made?",
-      "answer": "Congress"
-    },
-    {
-      "category": "Social Studies",
-      "grade": "4th Grade",
-      "question": "How many branches does the U.S. government have?",
-      "answer": "3"
-    },
-    {
-      "category": "Health",
-      "grade": "1st Grade",
-      "question": "How many bones are in the adult human body?",
-      "answer": "206"
-    },
-    {
-      "category": "Health",
-      "grade": "3rd Grade",
-      "question": "Bread, rice, and pasta belong to which food group?",
-      "answer": "Grains"
-    },
-    {
-      "category": "Art & Music",
-      "grade": "2nd Grade",
-      "question": "What are the three primary colors?",
-      "answer": "Red, yellow, and blue"
-    },
-    {
-      "category": "Art & Music",
-      "grade": "5th Grade",
-      "question": "How many lines are on a standard musical staff?",
-      "answer": "5"
+      "question": "What term describes music played very softly?",
+      "answer": "Piano"
     }
   ]
 }

@@ -70,10 +70,18 @@
     box-shadow: 0 20px 50px rgba(0,0,0,0.4);
   }
   .modal-box h2 {
-    margin-top: 0;
+    margin: 20px 0 8px;
     color: var(--ink);
   }
-  .modal-box ol {
+  .modal-box h2:first-child {
+    margin-top: 0;
+  }
+  .modal-box p {
+    color: var(--ink);
+    line-height: 1.6;
+  }
+  .modal-box ol,
+  .modal-box ul {
     padding-left: 20px;
     color: var(--ink);
     line-height: 1.6;
@@ -81,18 +89,36 @@
   .modal-box li {
     margin-bottom: 8px;
   }
+  .rules-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.85rem;
+    color: var(--ink);
+    margin-bottom: 10px;
+  }
+  .rules-table th,
+  .rules-table td {
+    border: 1px solid #e5e7eb;
+    padding: 8px;
+    text-align: left;
+    vertical-align: top;
+  }
+  .rules-table th {
+    background: #f9fafb;
+    font-weight: 700;
+  }
   .layout {
     display: flex;
     align-items: flex-start;
     justify-content: center;
     gap: 20px;
     width: 100%;
-    max-width: 1140px;
+    max-width: 1440px;
     flex-wrap: wrap;
   }
   .app {
     width: 100%;
-    max-width: 780px;
+    max-width: 1080px;
   }
   h1.title {
     text-align: center;
@@ -136,6 +162,49 @@
     gap: 10px;
     justify-content: center;
   }
+  .cheat-list {
+    margin-top: 16px;
+    padding-top: 12px;
+    border-top: 1px solid #e5e7eb;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .cheat-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 6px;
+    font-size: 0.75rem;
+    color: var(--ink);
+  }
+  .cheat-label {
+    font-weight: 600;
+  }
+  .cheat-count {
+    font-weight: 700;
+    min-width: 14px;
+    text-align: center;
+  }
+  .cheat-btn {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: none;
+    background: #e5e7eb;
+    color: var(--ink);
+    font-weight: 700;
+    font-size: 0.8rem;
+    line-height: 1;
+    cursor: pointer;
+  }
+  .cheat-btn:hover:not(:disabled) {
+    background: #d1d5db;
+  }
+  .cheat-btn:disabled {
+    opacity: 0.4;
+    cursor: default;
+  }
   .team-btn {
     width: 40px;
     height: 40px;
@@ -169,11 +238,17 @@
   }
   .category-grid {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: repeat(4, 1fr);
     gap: 14px;
   }
-  .category-grid > *:last-child:nth-child(3n+1) {
+  .category-grid > *:last-child:nth-child(4n+1) {
+    grid-column: 2 / span 2;
+  }
+  .category-grid > *:nth-last-child(2):nth-child(4n+1) {
     grid-column: 2;
+  }
+  .category-grid > *:last-child:nth-child(4n+2) {
+    grid-column: 3;
   }
   .category-card {
     border: 2px solid #e5e7eb;
@@ -220,19 +295,19 @@
     cursor: default;
   }
   .grade-btn.won-team1 {
-    background: #dbeafe;
-    border-color: #2563eb;
-    color: #1e3a8a;
+    background: #dcfce7;
+    border-color: var(--correct);
+    color: #14532d;
   }
   .grade-btn.won-team2 {
-    background: #f3e8ff;
-    border-color: #9333ea;
-    color: #581c87;
+    background: #fee2e2;
+    border-color: var(--wrong);
+    color: #7f1d1d;
   }
   .grade-btn.won-both {
-    background: linear-gradient(135deg, #dbeafe 50%, #f3e8ff 50%);
-    border-color: #7c3aed;
-    color: #312e81;
+    background: linear-gradient(135deg, #dcfce7 50%, #fee2e2 50%);
+    border-color: var(--accent);
+    color: #78350f;
   }
   .grade-btn.won-none {
     background: #f3f4f6;
@@ -332,19 +407,19 @@
     filter: brightness(0.97);
   }
   .award-btn.team1 {
-    border-color: #2563eb;
-    color: #2563eb;
+    border-color: var(--correct);
+    color: var(--correct);
   }
   .award-btn.team2 {
-    border-color: #9333ea;
-    color: #9333ea;
+    border-color: var(--wrong);
+    color: var(--wrong);
   }
   .award-btn.team1.active {
-    background: #2563eb;
+    background: var(--correct);
     color: #fff;
   }
   .award-btn.team2.active {
-    background: #9333ea;
+    background: var(--wrong);
     color: #fff;
   }
   .footer-row {
@@ -422,6 +497,26 @@
       <button class="team-btn minus" id="team1Minus">&minus;</button>
       <button class="team-btn plus" id="team1Plus">+</button>
     </div>
+    <div class="cheat-list">
+      <div class="cheat-row">
+        <span class="cheat-label">Peeks</span>
+        <button class="cheat-btn" id="team1PeekMinus">&minus;</button>
+        <span class="cheat-count" id="team1PeekCount">3</span>
+        <button class="cheat-btn" id="team1PeekPlus">+</button>
+      </div>
+      <div class="cheat-row">
+        <span class="cheat-label">Copies</span>
+        <button class="cheat-btn" id="team1CopyMinus">&minus;</button>
+        <span class="cheat-count" id="team1CopyCount">3</span>
+        <button class="cheat-btn" id="team1CopyPlus">+</button>
+      </div>
+      <div class="cheat-row">
+        <span class="cheat-label">Saves</span>
+        <button class="cheat-btn" id="team1SaveMinus">&minus;</button>
+        <span class="cheat-count" id="team1SaveCount">2</span>
+        <button class="cheat-btn" id="team1SavePlus">+</button>
+      </div>
+    </div>
   </div>
 
   <div class="app">
@@ -436,6 +531,26 @@
       <button class="team-btn minus" id="team2Minus">&minus;</button>
       <button class="team-btn plus" id="team2Plus">+</button>
     </div>
+    <div class="cheat-list">
+      <div class="cheat-row">
+        <span class="cheat-label">Peeks</span>
+        <button class="cheat-btn" id="team2PeekMinus">&minus;</button>
+        <span class="cheat-count" id="team2PeekCount">3</span>
+        <button class="cheat-btn" id="team2PeekPlus">+</button>
+      </div>
+      <div class="cheat-row">
+        <span class="cheat-label">Copies</span>
+        <button class="cheat-btn" id="team2CopyMinus">&minus;</button>
+        <span class="cheat-count" id="team2CopyCount">3</span>
+        <button class="cheat-btn" id="team2CopyPlus">+</button>
+      </div>
+      <div class="cheat-row">
+        <span class="cheat-label">Saves</span>
+        <button class="cheat-btn" id="team2SaveMinus">&minus;</button>
+        <span class="cheat-count" id="team2SaveCount">2</span>
+        <button class="cheat-btn" id="team2SavePlus">+</button>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -446,23 +561,79 @@
 
 <div class="modal-overlay" id="rulesOverlay">
   <div class="modal-box">
-    <h2>How to Play</h2>
-    <ol>
-      <li>Pick a category, then pick a grade level to reveal that question. Higher grades are worth more points (1st: 100, 2nd: 200, 3rd: 300, 4th: 500, 5th: 1000).</li>
+    <h2>Setup</h2>
+    <ul>
+      <li>Bring your two teams to the front.</li>
+      <li>Before the game starts, each team sets a fixed contestant order. This order cannot change once the game begins.</li>
+    </ul>
+
+    <h2>Starting a Round</h2>
+    <ul>
+      <li>The next contestant in each team's order comes up.</li>
+      <li>Each contestant picks one teammate to be their "student" for the round.</li>
+      <li>A student cannot be picked two rounds in a row. A student who sat out the previous round is eligible again.</li>
+      <li>The two contestants play rock-paper-scissors. The winner chooses the category and the grade level of the question.</li>
+    </ul>
+
+    <h2>Answering</h2>
+    <ul>
+      <li>Both teams answer the question silently and independently.</li>
+      <li>The contestant and their student answer together, privately, as a pair. Both answers are revealed at the end of the round.</li>
+      <li>Teammates who are not the contestant or student may chat privately for fun, but cannot influence the round.</li>
+    </ul>
+
+    <h2>Cheats</h2>
+    <p>Each team may use cheats only with the one classmate (student) chosen for that round. The total number of cheats is shared across the entire team.</p>
+    <table class="rules-table">
+      <thead>
+        <tr><th>Cheat</th><th>Uses</th><th>How it works</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Peek</td>
+          <td>3</td>
+          <td>Look at your student's answer, then choose to keep your own answer or switch to theirs. Once a Peek is used, no one else on the team may react or give hints.</td>
+        </tr>
+        <tr>
+          <td>Copy</td>
+          <td>3</td>
+          <td>You must use your student's answer as-is. No changing your mind after.</td>
+        </tr>
+        <tr>
+          <td>Save</td>
+          <td>2</td>
+          <td>Answer normally. If you get the question wrong, you may choose to use a Save: if your student answered correctly, you get the points instead of zero. If your student was also wrong, you still get zero.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2>Scoring</h2>
+    <ul>
+      <li>Points are awarded per correct answer, scaled by grade level.</li>
+      <li>The team with the most points at the end of the game wins.</li>
+    </ul>
+    <ul>
+      <li>5th Grade &mdash; 500 points</li>
+      <li>4th Grade &mdash; 400 points</li>
+      <li>3rd Grade &mdash; 300 points</li>
+      <li>2nd Grade &mdash; 200 points</li>
+      <li>1st Grade &mdash; 100 points</li>
+    </ul>
+
+    <h2>Tie-Breaker</h2>
+    <p>If the game ends in a tie or is very close, use a multiplication table round to decide the winner. Time limit: 1 minute to complete. Whoever has the most correct answers wins all the points.</p>
+
+    <h2>Using This App</h2>
+    <ul>
+      <li>Pick a category, then pick a grade level to reveal that question.</li>
       <li>Read the question out loud and let both teams answer.</li>
       <li>Click <strong>Reveal Answer</strong> to show the correct answer.</li>
       <li>Click <strong>Team 1</strong> and/or <strong>Team 2</strong> to award that team the points &mdash; both teams can score on the same question. Click a team again to undo it.</li>
       <li>Click <strong>Back to Categories</strong> to continue. Once all 20 questions are answered, the final scores decide the winner.</li>
-      <li>Use the <strong>+</strong> / <strong>&minus;</strong> buttons on either scoreboard to adjust a team's score manually at any time.</li>
-      <li>Use <strong>Reset Game</strong> below to clear all scores and start over.</li>
-    </ol>
-    <h2>Cheats</h2>
-    <p>You may choose ONE classmate to help with a question:</p>
-    <ol>
-      <li><strong>Peek</strong> &mdash; Look at your classmate's answer, then decide whether to use your own answer or theirs.</li>
-      <li><strong>Copy</strong> &mdash; You MUST use your classmate's answer. No changing your mind.</li>
-      <li><strong>Save</strong> &mdash; You answer normally. If you're wrong but your classmate answered correctly, you're saved and stay in the game. If both are wrong, you're out.</li>
-    </ol>
+      <li>Use the <strong>+</strong> / <strong>&minus;</strong> buttons on either scoreboard to adjust a team's score manually, and the Peek/Copy/Save <strong>&minus;</strong> buttons to track cheat uses.</li>
+      <li>Use <strong>Reset Game</strong> below to clear all scores and cheat counts and start over.</li>
+    </ul>
+
     <button class="next" id="closeRulesBtn">Close</button>
   </div>
 </div>
@@ -473,123 +644,219 @@ const QUESTIONS_DATA = {
   "questions": [
     {
       "category": "Science",
+      "grade": "4th Grade",
+      "question": "Which of the following trees is considered a conifer? (A) Oak (B) Pine (C) Maple",
+      "answer": "Pine"
+    },
+    {
+      "category": "Social Studies",
+      "grade": "2nd Grade",
+      "question": "True or False? The U.S. president must be a natural born citizen of the United States.",
+      "answer": "True"
+    },
+    {
+      "category": "U.S. Geography",
+      "grade": "3rd Grade",
+      "question": "What is the capital of Michigan?",
+      "answer": "Lansing"
+    },
+    {
+      "category": "Mystery",
+      "grade": "5th Grade",
+      "question": "After discovering Radium in 1898, what French chemist became the first woman to win a Nobel Prize?",
+      "answer": "Marie Curie"
+    },
+    {
+      "category": "U.S. Geography",
       "grade": "1st Grade",
-      "question": "What planet do we live on?",
-      "answer": "Earth"
+      "question": "What does the C stand for in Washington D.C.?",
+      "answer": "Columbia"
     },
     {
       "category": "Science",
-      "grade": "4th Grade",
-      "question": "What is the powerhouse of the cell?",
-      "answer": "Mitochondria"
+      "grade": "1st Grade",
+      "question": "True or False? A salamander is a lizard.",
+      "answer": "False"
     },
     {
-      "category": "Math",
+      "category": "Geography",
       "grade": "2nd Grade",
-      "question": "What is 7 + 8?",
-      "answer": "15"
+      "question": "Excluding Antarctica, which continent reaches the furthest south?",
+      "answer": "South America"
+    },
+    {
+      "category": "Social Studies",
+      "grade": "1st Grade",
+      "question": "How many justices serve on the US Supreme Court?",
+      "answer": "9"
+    },
+    {
+      "category": "Geography",
+      "grade": "5th Grade",
+      "question": "Which of the following is NOT an official language of Switzerland? (A) German (B) French (C) Italian (D) Portuguese",
+      "answer": "Portuguese"
+    },
+    {
+      "category": "U.S. History",
+      "grade": "5th Grade",
+      "question": "What man who would later be U.S. president represented the British soldiers who were on trial for the Boston Massacre?",
+      "answer": "John Adams"
+    },
+    {
+      "category": "Health",
+      "grade": "3rd Grade",
+      "question": "What is the largest organ in the human body?",
+      "answer": "The Skin (liver by technicality)"
+    },
+    {
+      "category": "Music",
+      "grade": "4th Grade",
+      "question": "What patriotic song, based on a poem by Katharine Lee Bates, begins with the lyrics \"O Beautiful For Spacious Skies\"?",
+      "answer": "America the Beautiful"
+    },
+    {
+      "category": "Mystery",
+      "grade": "5th Grade",
+      "question": "What's the value of the following number: MCMLXXXIV",
+      "answer": "1984"
     },
     {
       "category": "Math",
-      "grade": "5th Grade",
-      "question": "What is the value of pi, rounded to two decimal places?",
-      "answer": "3.14"
+      "grade": "4th Grade",
+      "question": "What is the only prime number that is a factor of 16?",
+      "answer": "2"
     },
     {
-      "category": "Geography",
+      "category": "Measurement",
       "grade": "3rd Grade",
-      "question": "What is the largest continent on Earth?",
-      "answer": "Asia"
+      "question": "One inch is equal to how many centimeters? (A) 1.27 (B) 2.05 (C) 2.54 (D) 2.64",
+      "answer": "2.54"
     },
     {
-      "category": "Geography",
+      "category": "Science",
+      "grade": "2nd Grade",
+      "question": "What cloud produces thunder, lightning, and heavy rain? (A) Cumulonimbus (B) Cumulus (C) Stratus (D) Cirrus",
+      "answer": "Cumulonimbus"
+    },
+    {
+      "category": "Astronomy",
+      "grade": "3rd Grade",
+      "question": "What planet is typically the brightest in the night sky? (A) Venus (B) Mars (C) Mercury (D) Jupiter",
+      "answer": "Venus"
+    },
+    {
+      "category": "Measurement",
       "grade": "5th Grade",
-      "question": "Which river is traditionally called the longest in the world?",
-      "answer": "The Nile River"
+      "question": "How many cups are in 5 and a half gallons?",
+      "answer": "88 cups (16 × 5 + 8 = 88)"
+    },
+    {
+      "category": "Astronomy",
+      "grade": "5th Grade",
+      "question": "What is the most abundant element in the universe?",
+      "answer": "Carbon"
+    },
+    {
+      "category": "Health",
+      "grade": "5th Grade",
+      "question": "Which blood type is known as the universal RECIPIENT? (A) AB (B) O (C) A (D) B",
+      "answer": "AB"
     },
     {
       "category": "U.S. History",
       "grade": "2nd Grade",
-      "question": "Who was the first President of the United States?",
+      "question": "The Statue of Liberty was a gift to the U.S. from which country?",
+      "answer": "France"
+    },
+    {
+      "category": "Math",
+      "grade": "3rd Grade",
+      "question": "What is the least common multiple of 9 and 12?",
+      "answer": "36"
+    },
+    {
+      "category": "U.S. Geography",
+      "grade": "4th Grade",
+      "question": "What is the largest Great Lake?",
+      "answer": "Lake Superior"
+    },
+    {
+      "category": "Health",
+      "grade": "3rd Grade",
+      "question": "What organ in the human body produces and secretes bile?",
+      "answer": "The liver"
+    },
+    {
+      "category": "Geography",
+      "grade": "1st Grade",
+      "question": "What is the longest river in the world?",
+      "answer": "The Nile"
+    },
+    {
+      "category": "U.S. History",
+      "grade": "4th Grade",
+      "question": "Who was elected president of the Confederate States during the American Civil War?",
+      "answer": "Jefferson Davis"
+    },
+    {
+      "category": "Animal Science",
+      "grade": "2nd Grade",
+      "question": "True or False: A porcupine is a type of rodent.",
+      "answer": "True"
+    },
+    {
+      "category": "Animal Science",
+      "grade": "3rd Grade",
+      "question": "In this ecosystem, a wolf that primarily eats deer would belong to which trophic level? (A) Producer (B) Primary (C) Decomposer (D) Secondary",
+      "answer": "Secondary"
+    },
+    {
+      "category": "Music",
+      "grade": "3rd Grade",
+      "question": "Which of these voices is the highest? (A) Soprano (B) Bass (C) alto (D) tenor",
+      "answer": "Soprano"
+    },
+    {
+      "category": "Astronomy",
+      "grade": "4th Grade",
+      "question": "What country was the first to put a human in space?",
+      "answer": "Soviet Union"
+    },
+    {
+      "category": "Math",
+      "grade": "5th Grade",
+      "question": "What is 12/5 ÷ 7/15?",
+      "answer": "36/7"
+    },
+    {
+      "category": "Measurement",
+      "grade": "3rd Grade",
+      "question": "How many feet are in one mile?",
+      "answer": "5280"
+    },
+    {
+      "category": "Animal Science",
+      "grade": "4th Grade",
+      "question": "What is a group of geese on the ground called?",
+      "answer": "A gaggle"
+    },
+    {
+      "category": "Social Studies",
+      "grade": "2nd Grade",
+      "question": "Which president was said to have cut down the cherry tree?",
       "answer": "George Washington"
     },
     {
-      "category": "U.S. History",
-      "grade": "4th Grade",
-      "question": "In what year did the United States declare independence?",
-      "answer": "1776"
-    },
-    {
-      "category": "Reading",
-      "grade": "1st Grade",
-      "question": "What do you call a word that means the same as another word?",
-      "answer": "A synonym"
-    },
-    {
-      "category": "Reading",
-      "grade": "3rd Grade",
-      "question": "What is the main character of a story called?",
-      "answer": "The protagonist"
-    },
-    {
-      "category": "Spelling",
+      "category": "Mystery",
       "grade": "2nd Grade",
-      "question": "Spell the word meaning \"to get or obtain something.\"",
-      "answer": "Receive"
+      "question": "What is the name of the layer of the Earth located directly beneath the crust?",
+      "answer": "The mantle"
     },
     {
-      "category": "Spelling",
-      "grade": "4th Grade",
-      "question": "Spell the word meaning \"required or essential.\"",
-      "answer": "Necessary"
-    },
-    {
-      "category": "Grammar",
-      "grade": "3rd Grade",
-      "question": "What contraction means \"they are\"?",
-      "answer": "They're"
-    },
-    {
-      "category": "Grammar",
-      "grade": "5th Grade",
-      "question": "Name a preposition that means the opposite of \"over.\"",
-      "answer": "Under"
-    },
-    {
-      "category": "Social Studies",
+      "category": "Music",
       "grade": "2nd Grade",
-      "question": "What do we call the place where U.S. laws are made?",
-      "answer": "Congress"
-    },
-    {
-      "category": "Social Studies",
-      "grade": "4th Grade",
-      "question": "How many branches does the U.S. government have?",
-      "answer": "3"
-    },
-    {
-      "category": "Health",
-      "grade": "1st Grade",
-      "question": "How many bones are in the adult human body?",
-      "answer": "206"
-    },
-    {
-      "category": "Health",
-      "grade": "3rd Grade",
-      "question": "Bread, rice, and pasta belong to which food group?",
-      "answer": "Grains"
-    },
-    {
-      "category": "Art & Music",
-      "grade": "2nd Grade",
-      "question": "What are the three primary colors?",
-      "answer": "Red, yellow, and blue"
-    },
-    {
-      "category": "Art & Music",
-      "grade": "5th Grade",
-      "question": "How many lines are on a standard musical staff?",
-      "answer": "5"
+      "question": "What term describes music played very softly?",
+      "answer": "Piano"
     }
   ]
 };
@@ -600,13 +867,17 @@ const CATEGORY_EMOJI = {
   'Science': '🔬',
   'Math': '➗',
   'Geography': '🌍',
+  'U.S. Geography': '🗺️',
   'U.S. History': '🏛️',
-  'Reading': '📖',
-  'Spelling': '✏️',
   'Grammar': '📝',
   'Social Studies': '🏫',
   'Health': '🩺',
-  'Art & Music': '🎨'
+  'Music': '🎵',
+  'Mystery': '🕵️',
+  'Cultural Studies': '🌐',
+  'Measurement': '📏',
+  'Astronomy': '🔭',
+  'Animal Science': '🐾'
 };
 function emojiFor(category) {
   return CATEGORY_EMOJI[category] || '❓';
@@ -616,8 +887,8 @@ const GRADE_POINTS = {
   '1st Grade': 100,
   '2nd Grade': 200,
   '3rd Grade': 300,
-  '4th Grade': 500,
-  '5th Grade': 1000
+  '4th Grade': 400,
+  '5th Grade': 500
 };
 function pointsForGrade(grade) {
   return GRADE_POINTS[grade] || 100;
@@ -654,6 +925,48 @@ function bindTeamScoreboards() {
   document.getElementById('team2Plus').addEventListener('click', () => addTeamPoints('team2', 100));
   document.getElementById('team1Minus').addEventListener('click', () => subtractTeamPoints('team1', 100));
   document.getElementById('team2Minus').addEventListener('click', () => subtractTeamPoints('team2', 100));
+}
+
+const CHEAT_DEFAULTS = { peek: 3, copy: 3, save: 2 };
+const cheatCounts = {
+  team1: { ...CHEAT_DEFAULTS },
+  team2: { ...CHEAT_DEFAULTS }
+};
+
+function cheatIdPrefix(type) {
+  return type.charAt(0).toUpperCase() + type.slice(1);
+}
+
+function updateCheatDisplay(team, type) {
+  const count = cheatCounts[team][type];
+  document.getElementById(team + cheatIdPrefix(type) + 'Count').textContent = count;
+  document.getElementById(team + cheatIdPrefix(type) + 'Minus').disabled = count <= 0;
+}
+
+function resetCheatCounts() {
+  ['team1', 'team2'].forEach(team => {
+    Object.keys(CHEAT_DEFAULTS).forEach(type => {
+      cheatCounts[team][type] = CHEAT_DEFAULTS[type];
+      updateCheatDisplay(team, type);
+    });
+  });
+}
+
+function bindCheatButtons() {
+  ['team1', 'team2'].forEach(team => {
+    Object.keys(CHEAT_DEFAULTS).forEach(type => {
+      document.getElementById(team + cheatIdPrefix(type) + 'Minus').addEventListener('click', () => {
+        if (cheatCounts[team][type] > 0) {
+          cheatCounts[team][type]--;
+          updateCheatDisplay(team, type);
+        }
+      });
+      document.getElementById(team + cheatIdPrefix(type) + 'Plus').addEventListener('click', () => {
+        cheatCounts[team][type]++;
+        updateCheatDisplay(team, type);
+      });
+    });
+  });
 }
 
 function buildCategories(questions) {
@@ -713,7 +1026,7 @@ function renderHome() {
       if (q.answered) {
         cls += q.wonBy.length === 2 ? ' won-both' : q.wonBy.length === 1 ? ' won-' + q.wonBy[0] : ' won-none';
       }
-      return `<button class="${cls}" data-qi="${qi}" ${q.answered ? 'disabled' : ''}>${q.grade}<br>(${pointsForGrade(q.grade)})</button>`;
+      return `<button class="${cls}" data-qi="${qi}">${q.grade}<br>(${pointsForGrade(q.grade)})</button>`;
     }).join('');
 
     el.innerHTML = `
@@ -723,10 +1036,8 @@ function renderHome() {
     `;
 
     el.querySelectorAll('.grade-btn').forEach(btn => {
-      if (!btn.disabled) {
-        const qi = Number(btn.dataset.qi);
-        btn.addEventListener('click', () => openQuestion(ci, qi));
-      }
+      const qi = Number(btn.dataset.qi);
+      btn.addEventListener('click', () => openQuestion(ci, qi));
     });
 
     grid.appendChild(el);
@@ -748,6 +1059,11 @@ function renderQuestion() {
   const cat = state.categories[catIndex];
   const q = cat.questions[qIndexInCat];
 
+  if (q.answered) {
+    renderAnsweredQuestion(q);
+    return;
+  }
+
   card.innerHTML = `
     <button class="back-link" id="backBtn">&larr; Categories</button>
     <div class="badge-row">
@@ -760,6 +1076,36 @@ function renderQuestion() {
 
   document.getElementById('backBtn').addEventListener('click', renderHome);
   document.getElementById('revealBtn').addEventListener('click', () => revealAnswer(q));
+}
+
+function renderAnsweredQuestion(q) {
+  const points = pointsForGrade(q.grade);
+  const team1Active = q.wonBy.includes('team1');
+  const team2Active = q.wonBy.includes('team2');
+
+  card.innerHTML = `
+    <button class="back-link" id="backBtn">&larr; Categories</button>
+    <div class="badge-row">
+      <span class="badge badge-category">${q.category}</span>
+      <span class="badge badge-grade">${q.grade} &middot; ${points} pts</span>
+    </div>
+    <div class="question">${q.question}</div>
+    <div class="answer-box">${q.answer}</div>
+    <span class="award-label">Who got it right? (worth ${points} points each &mdash; both teams can score)</span>
+    <div class="award-buttons">
+      <button class="award-btn team1${team1Active ? ' active' : ''}" id="awardTeam1">${team1Active ? '✓ Team 1' : 'Team 1'}</button>
+      <button class="award-btn team2${team2Active ? ' active' : ''}" id="awardTeam2">${team2Active ? '✓ Team 2' : 'Team 2'}</button>
+    </div>
+    <div class="footer-row">
+      <span></span>
+      <button class="next" id="continueBtn">Back to Categories &rarr;</button>
+    </div>
+  `;
+
+  document.getElementById('backBtn').addEventListener('click', renderHome);
+  document.getElementById('awardTeam1').addEventListener('click', e => toggleAward(q, 'team1', e.currentTarget));
+  document.getElementById('awardTeam2').addEventListener('click', e => toggleAward(q, 'team2', e.currentTarget));
+  document.getElementById('continueBtn').addEventListener('click', renderHome);
 }
 
 function revealAnswer(q) {
@@ -845,6 +1191,7 @@ function resetGame() {
   teamScores.team2 = 0;
   updateTeamScoreDisplay('team1');
   updateTeamScoreDisplay('team2');
+  resetCheatCounts();
   state.categories.forEach(cat => {
     cat.answeredCount = 0;
     cat.questions.forEach(q => { q.answered = false; q.wonBy = []; });
@@ -867,6 +1214,7 @@ function bindBottomBar() {
 }
 
 bindTeamScoreboards();
+bindCheatButtons();
 bindBottomBar();
 loadQuestions();
 </script>
